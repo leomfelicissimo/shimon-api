@@ -1,15 +1,10 @@
-import * as firebase from 'firebase';
+const admin = require('firebase-admin');
+const functions = require('firebase-functions');
 
-const config = {
-  apiKey: '',
-  authDomain: 'teocode-biblion.firebaseapp.com',
-  databaseURL: 'https://teocode-biblion.firebaseio.com',
-  storageBucket: 'bucket.appspot.com',
-};
-
-firebase.initializeApp(config);
-const database = firebase.database();
+admin.initializeApp(functions.config().firebase);
+const database = admin.firestore();
+const bibleCollection = database.collection('bible');
 
 exports.searchTerm = function searchTerm(req, res) {
-
+  bibleCollection.where('NVI', '==', req.param);
 };
